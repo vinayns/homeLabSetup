@@ -9,20 +9,27 @@ if [ ! -f /var/run/resume-after-reboot ]; then
   
   # Code to run
   # update and upgrade
+  echo "Updating and Upgrading OS"
   sudo apt update
   sudo apt upgrade -y
+  echo "Update and Upgrade Done!"
 
   #get docker install script and install it
+  echo "Installing Docker via get-docker.sh"
   curl -fsSL https://get.docker.com -o get-docker.sh
   sudo sh get-docker.sh
+  echo "Docker install script done"
 
   # Preparation for reboot
+  echo "Prep for reboot"
   script="bash /docker_compose_portainer.sh"
   
   # add this script to zsh so it gets triggered immediately after reboot
-  echo "$script" >> ~/.bashrc 
+  echo "Adding script to bashrc"
+  echo "$script" >> ~/.zshrc 
   
   # create a flag file to check if we are resuming from reboot.
+  echo "Creating a flag for first run of script"
   sudo touch /var/run/resume-after-reboot
   
   echo "rebooting.."
@@ -33,17 +40,22 @@ else
   echo "resuming script after reboot.."
   
   # Remove the line that we added in zshrc
-  sed -i '/bash/d' ~/.bashrc 
+  echo "Remove refrence of first run"
+  sed -i '/bash/d' ~/.zshrc 
   
   # remove the temporary file that we created to check for reboot
+  echo "Delete flag of first run"
   sudo rm -f /var/run/resume-after-reboot
 
   # continue with rest of the script
   #update and upgrade again
+  echo "Update and Upgrade again"
   sudo apt update
   sudo apt upgrade
+  echo "Second update and upgrade done"
 
   #test docker isntallation
+  echo "Run Hello-World"
   docker run hello-world
 
 fi
