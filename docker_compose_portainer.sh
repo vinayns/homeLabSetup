@@ -39,6 +39,11 @@ else
   sudo rm -f /var/run/resume-after-reboot
 
   # continue with rest of the script
+  #update and upgrade again
+  sudo apt update
+  sudo apt upgrade
+
+  #test docker isntallation
   docker run hello-world
 
 fi
