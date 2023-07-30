@@ -1,20 +1,44 @@
 #!/bin/bash
 
-DIST_BASE="ubuntu"
+# filename: docker_compose_portainer.sh
 
-apt-get update
-apt-get upgrade -y
+# check if the reboot flag file exists. 
+# We created this file before rebooting.
+if [ ! -f /var/run/resume-after-reboot ]; then
+  echo "Running script for the first time.."
+  
+  # Code to run
+  # update and upgrade
+  sudo apt update
+  sudo apt upgrade -y
 
-apt-get install -y apt-transport-https ca-certificates curl gnupg-agent software-properties-common
+  #get docker install script and install it
+  curl -fsSL https://get.docker.com -o get-docker.sh
+  sudo sh get-docker.sh
 
-curl -fsSL https://download.docker.com/linux/$DIST_BASE/gpg | sudo apt-key add -
-apt-key fingerprint 0EBFCD88
+  # Preparation for reboot
+  script="bash /docker_compose_portainer.sh"
+  
+  # add this script to zsh so it gets triggered immediately after reboot
+  echo "$script" >> ~/.bashrc 
+  
+  # create a flag file to check if we are resuming from reboot.
+  sudo touch /var/run/resume-after-reboot
+  
+  echo "rebooting.."
+  # reboot here
+  sudo reboot
+  
+else 
+  echo "resuming script after reboot.."
+  
+  # Remove the line that we added in zshrc
+  sed -i '/bash/d' ~/.bashrc 
+  
+  # remove the temporary file that we created to check for reboot
+  sudo rm -f /var/run/resume-after-reboot
 
-add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/$DIST_BASE $(lsb_release -cs) stable"
-apt-get install -y docker-ce docker-ce-cli containerd.io
+  # continue with rest of the script
+  docker run hello-world
 
-docker run hello-world
-docker volume create portainer_data
-docker run -d -p 8000:8000 -p 9443:9443 --name=portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce
-
-apt-get install -y docker-compose
+fi
