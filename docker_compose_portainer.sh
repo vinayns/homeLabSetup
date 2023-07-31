@@ -14,6 +14,8 @@ if [ ! -f /var/run/resume-after-reboot ]; then
   sudo apt upgrade -y
   echo "Update and Upgrade Done!"
 
+  read -p "Press enter to continue installtion of Docker"
+
   #get docker install script and install it
   echo "Installing Docker via get-docker.sh"
   curl -fsSL https://get.docker.com -o get-docker.sh
@@ -32,12 +34,15 @@ if [ ! -f /var/run/resume-after-reboot ]; then
   echo "Creating a flag for first run of script"
   sudo touch /var/run/resume-after-reboot
   
-  echo "rebooting.."
+  read -p "Press enter to reboot!"
+  echo "Rebooting..."
   # reboot here
   sudo reboot
   
 else 
-  echo "resuming script after reboot.."
+  echo "Resuming script after reboot.."
+
+  read -p "Press enter to continue"
   
   # Remove the line that we added in zshrc
   echo "Remove refrence of first run"
