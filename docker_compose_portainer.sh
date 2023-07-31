@@ -14,7 +14,7 @@ if [ ! -f /var/run/resume-after-reboot ]; then
   sudo apt upgrade -y
   echo "Update and Upgrade Done!"
 
-  read -p "Press enter to continue installtion of Docker"
+  read -t 25 -n 1 -s -r -p "Press enter to continue installtion of Docker"
 
   #get docker install script and install it
   echo "Installing Docker via get-docker.sh"
@@ -34,7 +34,7 @@ if [ ! -f /var/run/resume-after-reboot ]; then
   echo "Creating a flag for first run of script"
   sudo touch /var/run/resume-after-reboot
   
-  read -p "Press enter to reboot!"
+  read -t 25 -n 1 -s -r -p "Press enter to reboot!"
   echo "Rebooting..."
   # reboot here
   sudo reboot
@@ -42,7 +42,7 @@ if [ ! -f /var/run/resume-after-reboot ]; then
 else 
   echo "Resuming script after reboot.."
 
-  read -p "Press enter to continue"
+  read -t 25 -n 1 -s -r -p "Press enter to continue"
   
   # Remove the line that we added in zshrc
   echo "Remove refrence of first run"
@@ -59,6 +59,11 @@ else
   sudo apt upgrade
   echo "Second update and upgrade done"
 
+  # tasks to run docker rootless
+  sudo groupadd docker
+  sudo usermod -aG docker $USER
+  newgrp docker
+  
   #test docker isntallation
   echo "Run Hello-World"
   docker run hello-world
