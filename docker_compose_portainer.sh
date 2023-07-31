@@ -17,6 +17,8 @@ if [ ! -f /var/run/resume-after-reboot ]; then
   printf "%s " "Press enter to continue installtion of Docker"
   read ans
 
+  read -s -k '?Press any key to continue.'
+
   #get docker install script and install it
   echo "Installing Docker via get-docker.sh"
   curl -fsSL https://get.docker.com -o get-docker.sh
@@ -37,6 +39,8 @@ if [ ! -f /var/run/resume-after-reboot ]; then
   
   printf "%s " "Press enter to reboot!"
   read ans
+
+  read -s -k '?Press any key to continue.'
   
   echo "Rebooting..."
   # reboot here
