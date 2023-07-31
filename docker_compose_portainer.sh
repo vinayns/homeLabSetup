@@ -14,7 +14,8 @@ if [ ! -f /var/run/resume-after-reboot ]; then
   sudo apt upgrade -y
   echo "Update and Upgrade Done!"
 
-  read -t 25 -n 1 -s -r -p "Press enter to continue installtion of Docker"
+  printf "%s " "Press enter to continue installtion of Docker"
+  read ans
 
   #get docker install script and install it
   echo "Installing Docker via get-docker.sh"
@@ -27,14 +28,16 @@ if [ ! -f /var/run/resume-after-reboot ]; then
   script="bash /docker_compose_portainer.sh"
   
   # add this script to zsh so it gets triggered immediately after reboot
-  #--echo "Adding script to bashrc"
-  #--echo "$script" >> ~/.zshrc 
+  echo "Adding script to bashrc"
+  echo "$script" >> ~/.zshrc 
   
   # create a flag file to check if we are resuming from reboot.
   echo "Creating a flag for first run of script"
   sudo touch /var/run/resume-after-reboot
   
-  read -t 25 -n 1 -s -r -p "Press enter to reboot!"
+  printf "%s " "Press enter to reboot!"
+  read ans
+  
   echo "Rebooting..."
   # reboot here
   sudo reboot
@@ -42,11 +45,12 @@ if [ ! -f /var/run/resume-after-reboot ]; then
 else 
   echo "Resuming script after reboot.."
 
-  read -t 25 -n 1 -s -r -p "Press enter to continue"
+  printf "%s " "Press enter to continue"
+  read ans
   
   # Remove the line that we added in zshrc
-  #--echo "Remove refrence of first run"
-  #--sed -i '/bash/d' ~/.zshrc 
+  echo "Remove refrence of first run"
+  sed -i '/bash/d' ~/.zshrc 
   
   # remove the temporary file that we created to check for reboot
   echo "Delete flag of first run"
