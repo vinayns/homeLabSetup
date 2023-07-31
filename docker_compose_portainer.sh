@@ -45,9 +45,6 @@ if [ ! -f /var/run/resume-after-reboot ]; then
 else 
   echo "Resuming script after reboot.."
 
-  printf "%s " "Press enter to continue"
-  read ans
-  
   # Remove the line that we added in zshrc
   echo "Remove refrence of first run"
   sed -i '/bash/d' ~/.zshrc 
