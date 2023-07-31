@@ -14,12 +14,7 @@ if [ ! -f /var/run/resume-after-reboot ]; then
   sudo apt upgrade -y
   echo "Update and Upgrade Done!"
 
-  printf "%s " "Press enter to continue installtion of Docker"
-  read ans
-
-  read -s -k '?Press any key to continue.'
-
-  #get docker install script and install it
+ #get docker install script and install it
   echo "Installing Docker via get-docker.sh"
   curl -fsSL https://get.docker.com -o get-docker.sh
   sudo sh get-docker.sh
