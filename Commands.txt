@@ -1,0 +1,5 @@
+# 1st install command
+sudo curl -fsSL https://raw.githubusercontent.com/vinayns/homeLabSetup/main/docker_compose_portainer_preReboot.sh | sh
+
+# 2nd install command after reboot
+sudo curl -fsSL https://raw.githubusercontent.com/vinayns/homeLabSetup/main/docker_compose_portainer_postReboot.sh | sh
