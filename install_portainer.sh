@@ -16,3 +16,4 @@ echo "YML file ready for install with Docker-Compose"
 
 echo "Installing Poratiner.."
 docker compose up -d
+echo "Portainer Installed!"
