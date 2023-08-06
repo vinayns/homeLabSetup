@@ -3,3 +3,6 @@ sudo curl -fsSL https://raw.githubusercontent.com/vinayns/homeLabSetup/main/dock
 
 # 2nd install command after reboot
 sudo curl -fsSL https://raw.githubusercontent.com/vinayns/homeLabSetup/main/docker_compose_portainer_postReboot.sh | sh
+
+#3 Install Portainer
+sudo curl -fsSL https://raw.githubusercontent.com/vinayns/homeLabSetup/main/install_portainer.sh | sh
