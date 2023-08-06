@@ -4,8 +4,7 @@
 
 echo "Script to install Portainer"
 
-# continue with rest of the script
-#update and upgrade again
+# Download YML file and isntall it
 echo "Download docker compose yml file for Portainer"
 mkdir -p docker
 cd docker
@@ -14,3 +13,6 @@ wget https://raw.githubusercontent.com/vinayns/homeLabSetup/main/docker-compose-
 echo "Renaming yml file"
 mv docker-compose-portainer.yml docker-compose.yml
 echo "YML file ready for install with Docker-Compose"
+
+echo "Installing Poratiner.."
+docker compose up -d
