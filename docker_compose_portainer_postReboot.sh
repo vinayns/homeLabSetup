@@ -15,7 +15,9 @@ echo "Second update and upgrade done"
 sudo groupadd docker
 sudo usermod -aG docker $USER
 newgrp docker
-  
-#test docker isntallation
-echo "Run Hello-World"
-docker run hello-world
+echo "Docker install Finished!"
+
+echo "Rebooting..."
+# reboot here
+sudo reboot
+
